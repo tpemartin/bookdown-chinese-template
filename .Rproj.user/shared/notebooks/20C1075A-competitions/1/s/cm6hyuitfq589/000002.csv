@@ -1,0 +1,48 @@
+"0","pod15reg<-gs_url(""https://docs.google.com/spreadsheets/d/1ZInlqnwrcHQtPJyF4qzN10Vmomt_oyzBSIHeUpr9MVQ/edit#gid=823057741"")"
+"2","Sheet-identifying info appears to be a browser URL.
+googlesheets will attempt to extract sheet key from the URL.
+"
+"2","Putative key: 1ZInlqnwrcHQtPJyF4qzN10Vmomt_oyzBSIHeUpr9MVQ
+"
+"2","Sheet successfully identified: ""2015經濟播客競賽""
+"
+"0","pod15turn<-gs_url(""https://docs.google.com/spreadsheets/d/17t0TC0tLWBGrgSzBLb1QIBQJ-mVB1s2H1jlXHlO55VA/edit#gid=1151216273"")"
+"2","Sheet-identifying info appears to be a browser URL.
+googlesheets will attempt to extract sheet key from the URL.
+"
+"2","Putative key: 17t0TC0tLWBGrgSzBLb1QIBQJ-mVB1s2H1jlXHlO55VA
+"
+"2","Sheet successfully identified: ""2015 經濟播客影片繳交""
+"
+"0","pod16reg<-gs_url(""https://docs.google.com/spreadsheets/d/1UWMkHm9YzFeuS1QP1J-QAas7VOjJDOqtIsl4-lTnEi4/edit#gid=1012924266"")"
+"2","Sheet-identifying info appears to be a browser URL.
+googlesheets will attempt to extract sheet key from the URL.
+"
+"2","Putative key: 1UWMkHm9YzFeuS1QP1J-QAas7VOjJDOqtIsl4-lTnEi4
+"
+"2","Sheet successfully identified: ""第二屆經濟播客競賽 報名表 (Responses)""
+"
+"0","pod16turn<-gs_url(""https://docs.google.com/spreadsheets/d/12rCwbJFJwCIN0DQ_vI6s8QTs02cgO2A8YZZBQVvYiCA/edit#gid=296212597"")"
+"2","Sheet-identifying info appears to be a browser URL.
+googlesheets will attempt to extract sheet key from the URL.
+"
+"2","Putative key: 12rCwbJFJwCIN0DQ_vI6s8QTs02cgO2A8YZZBQVvYiCA
+"
+"2","Sheet successfully identified: ""2016 第二屆 經濟播客競賽 作品繳交 (Responses)""
+"
+"0","pod17reg<-gs_url(""https://docs.google.com/spreadsheets/d/14CD1D8oEzVRwmM-3i425DZCPqbCc_uecoJNZbe2sdKE/edit#gid=680384685"")"
+"2","Sheet-identifying info appears to be a browser URL.
+googlesheets will attempt to extract sheet key from the URL.
+"
+"2","Putative key: 14CD1D8oEzVRwmM-3i425DZCPqbCc_uecoJNZbe2sdKE
+"
+"2","Sheet successfully identified: ""2017 經濟播客競賽 (Responses)""
+"
+"0","pod17turn<-gs_url(""https://docs.google.com/spreadsheets/d/1DzqrQ0R71w4Blfyhgx36IbU2plhv4Tn2rROF7dpNzvM/edit#gid=779645118"")"
+"2","Sheet-identifying info appears to be a browser URL.
+googlesheets will attempt to extract sheet key from the URL.
+"
+"2","Putative key: 1DzqrQ0R71w4Blfyhgx36IbU2plhv4Tn2rROF7dpNzvM
+"
+"2","Sheet successfully identified: ""2017 第三屆 經濟播客競賽 作品繳交 (Responses)""
+"

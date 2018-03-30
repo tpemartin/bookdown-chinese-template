@@ -1,0 +1,4 @@
+"0","plot_training_losses(losses = list("
+"0","  original_model = original_hist$metrics$val_loss,"
+"0","  smaller_model = smaller_model_hist$metrics$val_loss"
+"0","))"

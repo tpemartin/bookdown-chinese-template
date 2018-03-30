@@ -1,0 +1,24 @@
+bookdown::gitbook:
+  includes:
+    in_header: ["./Header/ga.html","./Header/hypothesis.html","./Header/bootstrap-head.html"]
+    before_body: "./Before_body/open_review_block.html"
+    after_body: "./After_body/bootstrap-after-body.html"
+  css: ["./css/style.css", "./css/bootstrap.min.css"]
+  config:
+#    toc:
+#      collapse: none
+#      before: |
+#        <li><a href="./">目錄</a></li>
+#      after: |
+#        <li><a href="https://bookdown.org" target="blank">Powered by bookdown</a></li>
+#    edit: https://github.com/tpemartin/minicourse-material/tree/DV-02/DV-02%s
+    download: [epub]
+#          , 'rmd']
+#    edit: https://github.com/yihui/bookdown-chinese/edit/master/%s
+    sharing:
+      github: false
+      facebook: false
+      twitter: false
+bookdown::epub_book:
+  stylesheet: "./css/style.css"
+  always_allow_html: yes

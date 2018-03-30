@@ -1,0 +1,7 @@
+"0","compete_turn_in %>% select(-X) %>%
+  left_join(competition_reg,
+            by=c(""隊名"",""year"",""競賽"",""繳件"")) ->
+  competition_data
+"
+"2","Error: `by` can't contain join column `繳件` which is missing from RHS
+"

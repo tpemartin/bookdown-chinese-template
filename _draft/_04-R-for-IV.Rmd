@@ -1,0 +1,133 @@
+# R for IV
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE)
+```
+
+## setup
+<button id="btn-setup" onclick="CopyToClipboard('ch4-setup')">Click to copy</button><div id="ch4-setup">
+```{r}
+library("AER")
+library("ggplot2")
+library("dplyr")
+library(magrittr)
+library("knitr")
+```
+<div/>
+
+## dataframe物件
+
+<button id="btn-dframe" onclick="CopyToClipboard('ch4-data')">Click to copy</button>
+<div id="ch4-data">
+```{r}
+data("CigarettesSW")
+```
+</div>
+
+<div class="question">
+CigarettesSW這個dataframe的結構(structure)是什麼？有幾個變數？每個變數物件的類別(class)又是什麼？
+</div> 
+<br>
+找出CigarettesSW資料的詳細說明。
+
+## 因果問句
+
+<div class="question">
+香煙售價率如何影響香煙銷售量? 
+</div>
+<br>
+
+## 資料處理：樣本條作篩選  
+dplyr::filter
+magrittr::%<>%
+
+```{r}
+CigarettesSW %<>% mutate(rprice=price/cpi)
+CigarettesSW %<>% mutate(rincome=(income/cpi)/population)
+CigarettesSW %<>% mutate(tdiff=(taxs - tax)/cpi)
+CigarettesSW %>% filter(year == "1985") -> c1985
+CigarettesSW %>% filter(year == "1995") -> c1995
+```
+
+## 效應評估
+
+<div class="alert alert-warning">
+單純比較不同州「香煙（含稅）售價」(rpice)差異下的「香煙銷售量」(packs)變化並無法反應真正的「香煙售價」效應，原因是「立足點」並不與「香煙售價」獨立。
+</div>
+
+<div class="question">
+這裡「立足點」指得是什麼？
+</div>
+
+<button data-toggle="collapse" data-target="#ch4-y0q">Read more...</button>
+<div id="ch4-y0q" class="collapse">
+「低香煙售價的香煙銷售量」。
+</div>
+
+## 條件式獨立
+
+一個導致「香煙售價與立足點不獨立」的理由：州家戶所得水準(rincome)。
+
+<div class="question">
+為什麼？
+</div>
+
+<div class="question">
+忽略家戶所得會造成香煙售價的效應評估高估還是低估？
+</div>
+
+
+```{r}
+## convenience function: HC1 covariances
+hc1 <- function(x) vcovHC(x, type = "HC1")
+
+## Equation 12.15
+ch4_ols1 <- c1995 %>% lm(log(packs) ~ log(rprice), data = .)
+coeftest(ch4_ols1, vcov = hc1) -> coeftest4_ols1
+
+ch4_ols2 <- c1995 %>% lm(log(packs) ~ log(rprice) + log(rincome) , data = .)
+coeftest(ch4_ols2, vcov = hc1) -> coeftest4_ols2
+```
+
+檢查物件結構：str()
+```{r}
+coeftest4_ols1 %>% str
+```
+顯示透過attr(.,"dimnames")我們會看到一個list變數來描述物價內容定義。
+
+<div class="alert alert-warning">
+善用`attr(,"自取屬性名稱")`可以記錄資料變數名稱及資料來源。
+</div>
+```{r}
+coeftest4_ols1 %>% attr("dimnames")
+```
+
+
+```{r, results='asis'}
+library(stargazer)
+stargazer(ch4_ols1,ch4_ols2,
+          se=list(coeftest4_ols1[,2],coeftest4_ols2[,2]),
+          type="html",
+          align=TRUE)
+```
+
+
+```{r}
+## Equations 12.9--12.11
+fm_s1 <- lm(log(rprice) ~ tdiff, data = c1995)
+coeftest(fm_s1, vcov = hc1)
+fm_s2 <- lm(log(packs) ~ fitted(fm_s1), data = c1995)
+fm_ivreg <- ivreg(log(packs) ~ log(rprice) | tdiff, data = c1995)
+coeftest(fm_ivreg, vcov = hc1)
+
+## Equation 12.15
+fm_ivreg2 <- ivreg(log(packs) ~ log(rprice) + log(rincome) | log(rincome) + tdiff, data = c1995)
+coeftest(fm_ivreg2, vcov = hc1)
+## Equation 12.16
+fm_ivreg3 <- ivreg(log(packs) ~ log(rprice) + log(rincome) | log(rincome) + tdiff + I(tax/cpi),
+  data = c1995)
+coeftest(fm_ivreg3, vcov = hc1)
+
+```
+

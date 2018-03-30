@@ -1,0 +1,163 @@
+"0","data15regws<-gs_read(data15,ws=""Form Responses 1"")"
+"2","Accessing worksheet titled 'Form Responses 1'.
+"
+"1","Downloading: "
+"1","1.2 kB"
+"1","     "
+"1","Downloading: "
+"1","1.2 kB"
+"1","     "
+"1","Downloading: "
+"1","2.4 kB"
+"1","     "
+"1","Downloading: "
+"1","2.4 kB"
+"1","     "
+"1","Downloading: "
+"1","2.4 kB"
+"1","     "
+"1","Downloading: "
+"1","2.4 kB"
+"1","     "
+"1","Downloading: "
+"1","2.4 kB"
+"1","     "
+"1","Downloading: "
+"1","2.4 kB"
+"1","     "
+"1","Downloading: "
+"1","2.4 kB"
+"1","     "
+"1","Downloading: "
+"1","2.4 kB"
+"1","     "
+"2","Parsed with column specification:
+cols(
+  Timestamp = col_character(),
+  有參賽 = col_integer(),
+  名次 = col_integer(),
+  隊名 = col_character(),
+  隊員一姓名 = col_character(),
+  隊員一學號 = col_double(),
+  `隊員一 email` = col_character(),
+  隊員二姓名 = col_character(),
+  隊員二學號 = col_character(),
+  `隊員二 email` = col_character(),
+  隊員三姓名 = col_character(),
+  隊員三學號 = col_integer(),
+  `隊員三 email` = col_character(),
+  隊員四姓名 = col_character(),
+  隊員四學號 = col_integer(),
+  `隊員四 email` = col_character(),
+  隊員系級 = col_character(),
+  `我同意此競賽規則，並了解為維護學生權益與競賽品質，如遇特殊狀況，主辦單位保有最終決定權。` = col_character()
+)
+"
+"0","data16regws<-gs_read(data16,ws=""Form Responses 1"")"
+"2","Accessing worksheet titled 'Form Responses 1'.
+"
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"2","Parsed with column specification:
+cols(
+  Timestamp = col_character(),
+  有參賽 = col_character(),
+  名次 = col_character(),
+  隊名 = col_character(),
+  隊員一姓名 = col_character(),
+  隊員一學號 = col_integer(),
+  `隊員一 email` = col_character(),
+  隊員二姓名 = col_character(),
+  隊員二學號 = col_integer(),
+  `隊員二 email` = col_character(),
+  隊員三姓名 = col_character(),
+  隊員三學號 = col_integer(),
+  `隊員三 email` = col_character(),
+  隊員四姓名 = col_character(),
+  隊員四學號 = col_integer(),
+  `隊員四 email` = col_character(),
+  隊員系級 = col_character(),
+  `我同意此競賽規則，並了解為維護學生權益與競賽品質，如遇特殊狀況，主辦單位保有最終決定權。` = col_character()
+)
+"
+"0","data17regws<-gs_read(data17,ws=""Form Responses 1"")"
+"2","Accessing worksheet titled 'Form Responses 1'.
+"
+"1","Downloading: "
+"1","1.2 kB"
+"1","     "
+"1","Downloading: "
+"1","1.2 kB"
+"1","     "
+"1","Downloading: "
+"1","1.2 kB"
+"1","     "
+"1","Downloading: "
+"1","1.2 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"1","Downloading: "
+"1","1.3 kB"
+"1","     "
+"2","Parsed with column specification:
+cols(
+  Timestamp = col_character(),
+  隊名 = col_character(),
+  隊員一姓名 = col_character(),
+  隊員一學號 = col_integer(),
+  `隊員一 email` = col_character(),
+  隊員二姓名 = col_character(),
+  隊員二學號 = col_integer(),
+  `隊員二 email` = col_character(),
+  隊員三姓名 = col_character(),
+  隊員三學號 = col_integer(),
+  `隊員三 email` = col_character(),
+  隊員四姓名 = col_character(),
+  隊員四學號 = col_integer(),
+  `隊員四 email` = col_character(),
+  隊員系級 = col_character(),
+  `我同意此競賽規則，並了解為維護學生權益與競賽品質，如遇特殊狀況，主辦單位保有最終決定權。` = col_character()
+)
+"

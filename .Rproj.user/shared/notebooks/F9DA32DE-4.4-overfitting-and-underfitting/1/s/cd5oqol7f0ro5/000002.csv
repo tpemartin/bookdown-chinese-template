@@ -1,0 +1,6 @@
+"0","```r
+plot_training_losses(losses = list(
+  original_model = original_hist$metrics$loss,
+  bigger_model = bigger_model_hist$metrics$loss
+))
+```"

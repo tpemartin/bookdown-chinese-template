@@ -1,0 +1,4 @@
+"0","mean <- apply(train_data, 2, mean)"
+"0","std <- apply(train_data, 2, sd)"
+"0","train_data <- scale(train_data, center = mean, scale = std)"
+"0","test_data <- scale(test_data, center = mean, scale = std)"

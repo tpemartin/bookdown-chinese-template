@@ -1,0 +1,8 @@
+# html test
+<div class="container">
+  <ul class="list-group">
+    <li class="list-group-item">上大學的效果對兩人而言都一樣</li>
+    <li class="list-group-item">教育年限以外的其他影響小娟薪資的因素在小明身上也有相同因素水準。</li>
+    <li class="list-group-item">教育年限以外的其他影響小明薪資的因素在小娟身上也有相同因素水準。</li>
+  </ul>
+</div>

@@ -1,0 +1,397 @@
+# (PART) Part II: Instrumental variables {-} 
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE,out.width='80%')
+klippy::klippy()
+```
+
+# IV
+
+## 效應評估模型
+
+<div class="question">
+提高香煙（含稅）售價對香煙銷售量的影響？ <br>   
+</div>
+
+假設香煙銷售量$Y_i$與香煙售價$P_i$的因果模型可以寫成：
+
+$$Y_{i}={Y}_{-p,i}+\beta_iP_{i}$$
+
+其中$Y_{-p,i}$代表i州的「非價格催生之香煙銷售量」，也就是價格「以外」的其他因素所決定之銷量。
+
+
+<div class="alert alert-success">
+假設齊質價格效果：$\beta_i=\beta$
+</div>
+
+則因果模型可以寫成：
+
+$$ Y_{i}={Y}_{-p,i}+\beta P_{i}$$
+ 
+<div class="alert alert-danger">
+在做效應評估時，只有因果關係式的$\beta$值才是「真實」值。
+</div>
+
+
+```{r, fig.cap="真實效應(淺藍線)與資料",fig.align='center',out.extra="id='temp'"}
+library(AER)
+library(dplyr)
+library(magrittr)
+data("CigarettesSW")
+CigarettesSW %>% filter(year=="1995") %>%
+  mutate(rprice=log(price/cpi),
+         packs=log(packs)) -> CigarettesSW_temp
+c1995<-CigarettesSW_temp
+library(ggplot2)
+library(cowplot)
+CigarettesSW_temp %>%
+  ggplot(aes(y=packs,x=rprice)) +
+  geom_point() -> fig0
+
+# 計算通過中心點的直線方程式
+a.comp<-function(b,mean.x,mean.y){
+  a<- mean.y-b*mean.x
+  return(a)
+}
+mean_x<-mean(c1995$rprice)
+mean_y<-mean(c1995$packs)
+b.true<- -3
+fig0 +
+  geom_abline(slope = b.true,
+              intercept = a.comp(b.true,
+                                 mean_x,mean_y),
+              color="blue",size=2,alpha=0.1) -> fig0
+fig0
+```
+
+## 最小平方法估計式
+
+為方便討論，我們進一步去除下標0： 
+
+$$ Y_{i}={Y}_{-p,i}+\beta P_{i}$$
+
+考慮最小平方法估計式：
+$$\hat{\beta}=\frac{\sum_i(Y_i-\bar{Y})(P_i-\bar{P})}{\sum_i(P_i-\bar{P})^2}$$
+經過整理：
+$$
+\hat{\beta}=\sum_{i}\left\{ \frac{(P_{i}-\bar{P})^{2}}{\sum_{i}(P_{i}-\bar{P})^{2}}\right\} \times\frac{(Y_{i}-\bar{Y})}{(P_{i}-\bar{P})}
+$$
+<div class="question">
+它的幾何意義是什麼？
+</div>
+<button data-toggle="collapse" data-target="#ch4-q82">Read more...</button>
+<div id="ch4-q82" class="collapse alert alert-danger">
+一般化最小平方法（OLS）的斜率項估計式是所有觀測點與平均點連線斜率的「加權平均」。
+</div>
+
+<br>
+<div class="question">
+OLS估試式的斜率會比真實質陡還是緩？
+</div>
+```{r fig0_extra, fig.show='asis'}
+fig0 +
+  geom_smooth(data=c1995,method="lm",se=FALSE,color="black")
+```
+
+## 選擇性偏誤
+
+<div class="question">
+下圖是GA和MA兩州的香煙訂價與銷量：
+
+```{r ols-geomertry, message=FALSE, warning=FALSE, echo=FALSE}
+
+fig0+
+  geom_point(data=(CigarettesSW_temp %>% 
+      filter(state %in% c("GA","MA"))),
+      aes(x=rprice,y=packs,color=state),
+      size=4)->fig1
+fig1
+```
+
+請問這兩州「售價（$P_i$）」與「非售價效應之銷量（$Y_{-p,i}$）之間有什麼關連？整體來看（所有觀測點），兩者間的關連性為何？
+</div>
+<button data-toggle="collapse" data-target="#ch4-q151">Read more...</button>
+<div id="ch4-q151" class="collapse">
+麻州「售價（$P$）」較高，同時「非售價效應之銷量（$Y_{-p}$）」也比較高。整體來看兩者間有正向關連。
+</div>
+<br>
+
+<div class="alert alert-info">
+注意這裡我們是先假設我們已經知道真實值（藍線），這樣才能得知以上$P$與$Y_{-p}$有關（即選擇性偏誤）的觀察，現實應用上是不可能的，只能用邏輯判斷是否有此偏誤可能。
+</div>
+
+## 複迴歸模型
+
+### 邏輯推論潛在「選擇性偏誤」{-}
+
+一個造成$P$與$Y_{-p}$有正向關連的可能原因是影響$Y_{-p}$的「州所得(rincome)」。下圖顯示「州所得(rincome)」，與香煙售價及售量的關係。
+
+```{r}
+c1995 %<>% mutate(rincome=(income/cpi)/population)
+c1995 %>%
+  ggplot(aes(y=packs,x=rprice,alpha=rincome)) +
+  geom_point(size=4,color="red")
+```
+
+<div class="question">
+你觀察到什麼？它在「售價」與「非價格效應的銷售量」的關連上扮演什麼經濟直觀角色？
+</div>
+<button data-toggle="collapse" data-target="#ch4-q162">Read more...</button>
+<div id="ch4-q162" class="collapse">
+深紅色在圖面偏右上塊，有可能「所得」越高的州越負擔得起香煙，故香煙「售價」及「銷售」都會比較高。
+</div>
+<br>
+
+因此我們在估算效應模型時，至少得加入rincome變數：
+$$Y_i=\beta_0+\beta_1P_i+\beta_2 rincome+\varepsilon$$
+以上只是基本要有的複迴歸模型，當然導致「香煙價格($P_i$)」與「非價格效應的銷售量($Y_i$)」相關的因素不只有「州所得(rincome)」，其他有可能的因素都要不斷加入擴充複迴歸模型。
+
+<div class="alert alert-warning">
+由於選擇性偏誤指$Y_{-p}$中有些影響變數，如「州所得」，會同時影響$P$，在迴歸時若不包含「州所得」於迴歸模型中會造成$P$的效應估計偏誤，故選擇性偏誤又稱「遺漏變數偏誤」（Omitted variable bias）。
+</div>
+
+
+以下面的模型為例，
+$$Y_i=\beta_0+\beta_1P_i+w_i'\gamma+\varepsilon$$
+複迴歸模型下的OLS估計若可以得到效應評估模型下的$\beta$合理估計，
+<div class="question">
+它所要求的條件是什麼？
+</div>
+<button data-toggle="collapse" data-target="#ch4-q189">Read more...</button>
+<div id="ch4-q189" class="collapse">
+在$w_i$條件下，「香煙售價」($P_i$)必需要與「非價格效應的香煙銷售量」($Y_{-p,i}$) 獨立，即：
+$$P_i\perp Y_{-p,i} | w_i$$
+</div>
+
+## 工具變數
+
+* 複迴歸模型
+
+    把資料依$w_i$條件變數不同, 分群觀察「香煙售價」($P_i$)與「香煙銷售量」($Y_i$)之間的斜率。如果$w_i$變數選得好，同一群資料$P_i$與$Y_i$間的關連會反映應有的效應斜率——雖然有時$Y_i$會因為$Y_{-p,i}$的干擾影響我們對斜率高低的觀察，但因為$Y_{-p,i}$不會與$P_i$有關了，這些觀察干擾在大樣本下會互相抵消掉而還原應有的效應斜率值。
+
+如果不管我們怎麼選擇$w_i$還是無法控制住$Y_{-p,i}$對$P_i$與$Y_i$關連的干擾，那我們就要進行【資料轉換】直接從原始資料中【去除這些干擾】，其中最常見的兩種去除法為：工具變數法、追蹤資料固定效果模型。
+
+$$Y_i=Y_{-p,i}+\beta P_i$$
+
+工具變數必需要符合兩個條件：
+<div class="alert alert-info">
+1. 與$Y_{-p}$(非價格效應的銷量)「無關」。  
+2. 與$P$(香煙售價)「有關」。
+</div> 
+
+### 排除條件 {-}  
+條件1又稱為排除條件（exclusive restriction），即工具變數並不對$Y$(香煙售量)有因果效應，它被排除在解釋變數之外。  
+
+令$z_i$代表工具變數，
+<div class="question">
+在排除條件下，$\mathbb{E}(Y_{-p}|z)$等於多少？$\mathbb{E}(Y|z)$呢？
+</div>
+<button data-toggle="collapse" data-target="#ch4-q202">Read more...</button>
+<div id="ch4-q202" class="collapse">
+$\mathbb{E}(Y_{-p}|z)=\mathbb{E}(Y_{-p})=constant$，$\mathbb{E}(Y|z)=constant+\beta\mathbb{E}(P|z)$
+</div>
+<br>
+藉由排除條件，我們可以把惱人的$Y_{-p}$從效應模型中去除（更準確說，是只留下常數項），去除方法是將效應模型的重心放在由「工具變數」所引動的效應模型：
+\begin{equation} 
+\mathbb{E}(Y|z)=constant+\beta\mathbb{E}(P|z)
+(\#eq:ivstructure)
+\end{equation}
+
+### 相關性條件 {-}  
+\@ref(eq:ivstructure)中，若$\mathbb{E}(P|z)$不為常數，則$\beta$可以估計。  
+<div class="question">
+請問你會怎麼估計？
+</div>
+<button data-toggle="collapse" data-target="#ch4-q220">Read more...</button>
+<div id="ch4-q220" class="collapse">
+1. 先計算${E}(Y|z)$與$\mathbb{E}(P|z)$兩個配適值（分別用$\hat{Y}_z$與$\hat{P}_z$代表）。
+
+2. 迴歸$\hat{Y}_z$在$\hat{P}_z$上，得到代表$\beta$的斜率估計值。
+</div>
+<br>
+
+<div class="alert alert-warning">
+若$\mathbb{E}(P|z)$為常數，則上述方法無效。
+</div>
+
+條件2突顯了解釋變數本身必需被工具變數引動，否則無法得到$\beta$合理值，它除了稱為「相關性條件」(Relevance condition)，又稱為「認定條件」(identifying assumption)。
+
+### 工具變數：香煙稅 {-}
+
+<div class="question">
+為什麼香煙稅可排除「非價格效應的銷售量（$Y_{-p}$）」？
+</div>
+<button data-toggle="collapse" data-target="#ch4-q239">Read more...</button>
+<div id="ch4-q239" class="collapse">
+因為售價含稅，若香煙稅會影響「非價格效應的銷售量（$Y_{-p}$）」，表示同樣消費者要實付10美元一包的香煙，他會因為被政府拿走多少而改變他的購買意願——不太可能。
+</div>
+<br>
+
+<div class="question">
+為什麼香煙稅滿足認定條件？
+</div>
+
+
+```{r, fig.cap="認定條件：香煙稅率（tdiff）與香煙價格（rprice）", fig.show='asis'}
+c1995 %<>% mutate(tdiff=(taxs - tax)/cpi)
+c1995 %>%  
+  ggplot(aes(x=tdiff,y=rprice))+
+  geom_point() +
+  stat_smooth(method="lm",se=FALSE,color="pink")
+```
+
+
+```{r, fig.cap="香煙稅率（tdiff）與銷售量（packs）", fig.show='hide'}
+c1995 %<>% mutate(tdiff=(taxs - tax)/cpi)
+c1995 %>%  
+  ggplot(aes(x=tdiff,y=packs))+
+  geom_point() +
+  stat_smooth(method="lm",se=FALSE,color="pink")
+```
+
+
+```{r, fig.cap="原始(original)售量與「稅」間接造成的售量(fitted)",fig.show="hide"}
+c1995 %>% lm(packs~tdiff,data=.) %>%
+  .$fitted.values -> c1995$packs.fitted
+
+bind_rows(data.frame(packs=c1995$packs,type="original"),
+          data.frame(packs=c1995$packs.fitted,type="fitted")) -> c1995.iv
+c1995.iv$type %<>% as.character() 
+
+c1995.iv %>% ggplot()+
+  geom_density(aes(x=packs,color=type))+
+  scale_colour_manual(values = c("original"="black","fitted"="pink"))
+```
+
+
+
+```{r, fig.cap="原始(original)香煙價格與「稅」直間接造成的價格(fitted)",fig.show="hide"}
+c1995 %>% lm(rprice~tdiff,data=.) %>%
+  .$fitted.values -> c1995$rprice.fitted
+
+bind_rows(
+  data.frame(rprice=c1995$rprice,type="original"),
+  data.frame(rprice=c1995$rprice.fitted,type="fitted")) -> c1995.iv2
+
+c1995.iv2$type %<>% as.character() 
+
+c1995.iv2 %>% ggplot()+
+  geom_density(aes(x=rprice,color=type))+
+  scale_colour_manual(values = c("original"="black","fitted"="pink"))
+```
+
+
+```{r, fig.cap="原始資料的關連(original)與只留下工具變數所造成的關連(fitted)"}
+c1995.all<-data.frame(c1995.iv,rprice=c1995.iv2$rprice) 
+c1995.all %>% ggplot()+
+  geom_point(aes(y=packs,x=rprice,color=type))+
+  scale_color_manual(values=c("original"="black","fitted"="blue"))
+```
+
+由於「藍色」的資料是由工具變數「香煙稅」所造成，而「香煙稅」並不與「非價格效應的香煙售量」有關，所以「藍色」資料所呈現的「香煙價格」與「香煙售量」的關連較能反應價格對售量的效應。
+
+<div class="question">
+你會很訝異去除$Y_{-p}$之後香煙價格和售量呈現完美線性關連嗎？如果不會，為什麼？
+</div>
+
+## 兩階段最小平方法
+In general, there could be two groups of regressors. One ($X_{1i}$) suffers from OVB, the other ($X_{2i}$) does not. We express the model as
+
+$$\underset{1\times1}{\underbrace{Y_{i}}}=\underset{1\times K}{\underbrace{X_{1i}^{'}}\beta_{1}}+\underset{1\times P}{\underbrace{X_{2i}^{'}}\beta_{2}}+\underset{1\times1}{\underbrace{\epsilon_{i}}},where$$
+
+$$\underset{violate\ A3.}{\underbrace{X_{1i}\not\perp\epsilon_{i}}}\mbox{, but }X_{2i}\perp\epsilon_{i}.$$
+Let us stack the variables together such that 
+$$Y_{i}=\left[\begin{array}{cc}
+X_{1i} & X_{2i}\end{array}\right]\left[\begin{array}{c}
+\beta_{1}\\
+\beta_{2}
+\end{array}\right]+\epsilon_{i}=X_{i}^{'}\beta+\epsilon_{i},\ X_{i}\not\perp\epsilon_{i}.$$
+
+IVs. Suppose we find some proper IVs $z_{i}(M\times1)$ such that   
+1. Exclusive: $z_{i}\perp\epsilon_{i}$  
+2. Relevance: $corr(z_{i},X_{1i})\neq0$
+
+Besides, note that $X_{2i}$ could be a good candidate as well. We normally put $z_{i}$ and $X_{2i}$ together as our collection of IVs denoted as $${\bf Z}_{i}: {\bf Z}_{i}(\left(M+P\right)\times1)	=\left[\begin{array}{c}
+z_{i}\\
+X_{2i}
+\end{array}\right],
+{\bf Z}(n\times\left(M+P\right))	=\left[\begin{array}{c}
+{\bf Z}_{1}'\\
+\vdots\\
+{\bf Z}_{n}'
+\end{array}\right].$$
+
+TSLS.
+
+1. X regresses on ${\bf Z}\Rightarrow\hat{\gamma}=({\bf Z}^{'}{\bf Z})^{^{-1}}({\bf Z}^{'}X)\Rightarrow\hat{X}={\bf Z}\hat{\gamma}$ 
+
+2. Y regresses on $\hat{X}\Rightarrow\hat{\beta}_{IV}=(\hat{X}^{'}\hat{X})^{^{-1}}\hat{X}^{'}Y$
+
+## Identification
+
+In the second stage regression, the regressor $\hat{X}$ is $n\times\left(K+P\right)$. We want to estimate $\beta(\left(K+P\right)\times1)$. It looks like that we still have $K+P$ regressors from $\hat{X}$ in the second stage which seems to be enough for estimating $K+P$ coefficients. However, there might be some problem in identification since $\hat{X}$ is spanned from $M+P$ vectors in ${\bf Z}$ in the first stage. Remember
+
+<div class="alert alert-info">
+Whether we have enough regressors for our coefficient depends on the rank of our regressors matrix, but not on its number.
+</div>
+
+It is true that $rank(\hat{X})=\min\{K+P,\ rank({\bf Z})\}=\min\{K+P,\ M+P\}\leq rank({\bf Z})=M+P$,which might not be $K+P$. We need $rank(\hat{X})=K+P$ in order to estimate all the $\beta$ coefficients. 
+
+There are three possible situtations:
+
+<div class="alert alert-info">
+1. Underidentifying: $M<K\Rightarrow rank(\hat{X})<rank(X)\Rightarrow perfect\ multicollinearity.$
+
+2. Exactly identifying: $M=K\Rightarrow rank(\hat{X})=rank(X)\Rightarrow OK.$
+
+3. Overidentifying: $M>K\Rightarrow rank(\hat{X})=rank(X)\Rightarrow OK.$
+</div>
+
+The rule is that
+
+The number M of IVs that we find outside our regressors must be larger or equal to the number K of regressors that suffer from OVB problem. 
+
+## Endogeneity Bias
+
+One common source of OVB is Endogeneity Bias.
+
+Exercise. \begin{cases}
+Supply\ function\ : & Q_{i}=\alpha P_{i}+\epsilon_{i}^{S},\ P_{i}\perp\epsilon_{i}^{S}\\
+Demand\ function\ : & P_{i}=\beta Q_{i}+\epsilon_{i}^{D}
+\end{cases} 
+
+Both prices and quantities are endogenous. In other words,$P_{i}	=P(\alpha,\beta,\epsilon_{i}^{S},\epsilon_{i}^{D})$
+$Q_{i}	=Q(\alpha,\beta,\epsilon_{i}^{S},\epsilon_{i}^{D})$
+
+To be precise, their solutions are: $Q_{i}	=\alpha(\beta Q_{i}+\epsilon_{i}^{D})+\epsilon_{i}^{S}\Rightarrow Q_{i}=\frac{\alpha\epsilon_{i}^{D}+\epsilon_{i}^{s}}{1-\alpha\beta}$,
+$P_{i}	=\beta[\frac{\alpha\epsilon_{i}^{D}+\epsilon_{i}^{S}}{1-\alpha\beta}]+\epsilon_{i}^{D}$.Regressing $P_{i}$ on $Q_{i}$ does not give you consistent estimate of $\beta$ on the demand function since $Q_{i}\not\perp\epsilon_{i}^{D}$.Regressing $Q_{i}$ on $P_{i}$ does not give you consistent estimate of $\alpha$ on the supply function either since $P_{i}\not\perp\epsilon_{i}^{S}$.
+
+
+## Exercises
+### Neutrality of money 
+$\frac{\bigtriangleup Y}{Y}=\alpha_{0}+\alpha_{1}\cdot\frac{\bigtriangleup M}{M}+u$
+
+Income normally affect demand but not supply. It is intuitively to assume $I_{i}\perp\varepsilon_{i}^{s}$. As a result, it can be an IV for $P_{i}$ in the supply function.
+
+TSLS:
+
+1. $P_{i}$ regresses on $I_{i}\Rightarrow\hat{P_{i}}\Rightarrow$recover the change of $P_{i}$ that is solely due to the demand side change, i.e. controling Supply side, only move Demand side
+
+2. $Q_{i}=\alpha\hat{P_{i}}+\varepsilon_{i}^{s}$. ($Q_{i}$,$\hat{P_{i}}$) variation is coming from the demand side variation
+
+### Labor supply and labor demand.
+
+Labor Supply:
+$$wks=r_{1}+r_{2}\ln wage+r_{3}Ed+r_{4}union+r_{5}Fem+u^{S}.$$
+
+Labor Demand:
+$$\ln wage	=\beta_{1}+\beta_{2}wks+\beta_{3}Exp+\beta_{4}Exp^{2}+\beta_{5}Occ
+	+\beta_{6}Ind+\beta_{7}SMSA+u^{D}.$$
+
+To estimate labor supply,
+
+• $Z_{1}=\left[Ind\ |\ Ed,\ union,\ Fem\right]$: Exactly identified.
+
+• $Z_{2}=\left[Ind,\ SMSA\ |\ Ed,\ union,\ Fem\right]$: Overly identified.
+
+How about estimating labor demand?

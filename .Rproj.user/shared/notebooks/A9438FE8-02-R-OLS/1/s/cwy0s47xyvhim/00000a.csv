@@ -1,0 +1,4 @@
+"0","library(psych)"
+"0","journals %>% "
+"0","  select(citeprice,subs) %>%"
+"0","  pairs.panels()"

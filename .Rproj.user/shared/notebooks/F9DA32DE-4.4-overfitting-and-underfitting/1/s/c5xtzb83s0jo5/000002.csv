@@ -1,0 +1,2 @@
+"0","# At test time:
+layer_output <- layer_output * 0.5 "

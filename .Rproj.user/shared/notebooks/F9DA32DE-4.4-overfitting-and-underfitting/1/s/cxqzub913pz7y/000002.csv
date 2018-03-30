@@ -1,0 +1,8 @@
+"0","```r
+dpt_model_hist <- dpt_model %>% fit(
+  x_train, y_train,
+  epochs = 20,
+  batch_size = 512,
+  validation_data = list(x_test, y_test)
+)
+```"

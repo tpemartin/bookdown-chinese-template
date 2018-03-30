@@ -1,0 +1,7 @@
+"0","pod15regws %<>% gather_all()"
+"0","pod16regws %<>% gather_all()"
+"0","pod17regws %<>% gather_all()"
+"0","pod15regws$year<-2015"
+"0","pod16regws$year<-2016"
+"0","pod17regws$year<-2017"
+"0","bind_rows(pod15regws,pod16regws,pod17regws)->podcast_reg_data"

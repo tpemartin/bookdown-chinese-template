@@ -1,0 +1,3 @@
+"0","journals %>% "
+"0","  ggplot()+"
+"0","  geom_point(mapping=aes(y=log(subs),x=log(citeprice)))"

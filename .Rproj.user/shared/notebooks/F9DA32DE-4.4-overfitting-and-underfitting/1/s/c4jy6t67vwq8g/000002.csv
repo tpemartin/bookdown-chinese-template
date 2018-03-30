@@ -1,0 +1,3 @@
+"0","# At training time: we drop out 50% of the units in the output
+layer_output <- layer_output * sample(0:1, length(layer_output),
+                                      replace = TRUE)  "

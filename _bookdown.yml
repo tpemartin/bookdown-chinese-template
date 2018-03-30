@@ -1,0 +1,10 @@
+book_filename: econometric_analysis
+clean: [packages.bib, bookdown.bbl]
+language:
+  label:
+    fig: "圖 "
+    tab: "表 "
+  ui:
+    edit: "編輯"
+    chapter_name: ["第 ", " 章"]
+delete_merged_file: true

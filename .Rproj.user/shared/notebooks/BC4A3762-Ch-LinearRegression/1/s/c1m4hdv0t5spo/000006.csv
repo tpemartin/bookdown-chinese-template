@@ -1,0 +1,1 @@
+"0","lines(jour_pred[, 2] ~ lciteprice, col = 1, lty = 2)"

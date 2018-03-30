@@ -1,0 +1,8 @@
+"0","# 判斷變數是否為數值類別"
+"0","is_numeric<-function(x) all(is.numeric(x))"
+"0","# 計算數數與citeprice的相關係數"
+"0","cor_citeprice<-function(x) cor(x,journals$citeprice)"
+"0","journals %>%  "
+"0","  select_if(is_numeric) %>%"
+"0","  summarise_all(cor_citeprice) %>%"
+"0","  kable()"

@@ -1,0 +1,124 @@
+--- 
+title: "數量方法（一）"
+author: "林茂廷老師"
+date: "`r Sys.Date()`"
+description: 數量方法（一）電子書
+documentclass: ctexbook
+geometry:
+- b5paper
+- tmargin=2.5cm
+- bmargin=2.5cm
+- lmargin=3.5cm
+- rmargin=2.5cm
+link-citations: yes
+lof: yes
+lot: yes
+site: bookdown::bookdown_site
+colorlinks: yes
+---
+
+```{r setup, include=FALSE}
+options(
+  htmltools.dir.version = FALSE, formatR.indent = 2, width = 55, digits = 4
+)
+
+lapply(c(), function(pkg) {
+  if (system.file(package = pkg) == '') install.packages(pkg)
+})
+
+knitr::opts_chunk$set(message=FALSE,
+                      echo=FALSE,
+                      fig.showtext=TRUE)
+library(showtext)
+showtext_auto()
+```
+
+# 課程大綱 {-}  
+
+電子書網址：<https://bookdown.org/tpemartin/econometric_analysis/>
+
+## 基本資訊 {-}   
+授課老師： 林茂廷  
+辦公室：社科大樓3F01  
+諮詢時間：週二下午2點30-4點30     
+電話：02﹣86741111轉67170  
+Email：mtlin@gm.ntpu.edu.tw   
+作業上傳網址：https://www.dropbox.com/request/wAzlAatjCjvvExQZlzje  
+課程討論室：https://sites.google.com/view/econometric-analysis/home  
+分組名單填寫網址：https://goo.gl/forms/zXymIEOQbgagwRkg2
+分組結果：[請點此查閱自己的"組號"](https://docs.google.com/spreadsheets/u/2/d/e/2PACX-1vRj0T659dEfUuxUJYpWumtP0OdYIbCgP6xV6O_SXeYFK6SZtUz8b6RXdf7eLe6CZK_u7IRtay5-QR2Y/pubhtml?gid=860068219&single=true)  
+課堂程式說明：[Github repo: Econometrics-in-class-practice](https://github.com/tpemartin/Econometrics-in-class-practice)
+
+## 主題內容 {-}  
+In this semester, we will focus on Part II and Part VI of Greene’s book. The topics that I will cover are:
+
+[1] The Generalized Regression Model (ch.8)  
+[2] Models for Panel Data (ch.9)  
+[3] Models for Discrete Choice (ch.23)  
+[4] Truncation, Censoring, and Sample Selection (ch.24)  
+[5] Instrumental Variable Estimation (ch.12)  
+
+## 參考書籍 {-}  
+- Greene, William, Econometric Analysis, 6th ed, 2007, Prentice Hall. 
+- [R for Data Science](http://r4ds.had.co.nz/).  
+- [Principles of Econometrics with R](https://bookdown.org/ccolonescu/RPoE4/), Constantin Colonescu, bookdown.org, 2016.  
+- [Efficient R Programming](https://bookdown.org/csgillespie/efficientR/), Colin Gillespie and 
+Robin Lovelace, bookdown.org, 2016.  
+- [Econometrics with R](https://econometricswithr.wordpress.com/), Franz Mohr, personal blog (Awesome!!! I must say.)
+
+## Cheatsheets {-}  
+- [dplyr](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)  
+- [R markdown](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)  
+- [ggplot2](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)  
+
+## 本學期上課前請先依序完成以下項目 {-}  
+1. 安裝：R and R Studio Desktop: https://www.rstudio.com  
+2. 註冊Github.com: https://www.github.com  
+3. 安裝Github desktop: https://desktop.github.com/
+4. 連到<https://gitter.im>用你的Github帳號登錄。
+5. 註冊hypothes.is: <https://hypothes.is>  
+6. 填寫課程資料: <https://goo.gl/hZzv4D>
+
+## hypothes.is電子講義討論群 {-}  
+- <https://hypothes.is/groups/xPgdmzMj/shu-fang-106xue-nian>  
+
+
+<!--
+分組
+Study Group
+3 to 5 people form a study group. Once it is decided, visit the google document website that I will send to you later to fill in your group number. Please chose a number from 1 to 10 as a group ID to represent your group. Don’t choose the same number as other groups.
+-->
+
+## 評分方式 {-}
+方案一：  
+```{r}
+library(ggplot2)
+library(dplyr)
+library(magrittr)
+assessment<-data.frame(
+  type=c("課堂參與","作業","期中考","期末考"),
+  percentage=c(10,20,30,40))
+
+
+# Simple Pie Chart
+assessment %$%
+pie(percentage, labels = paste0(type," ", percentage,"%",sep=""), family="wqy-microhei")
+```
+
+方案二：
+不超過3人（限本課程同學）參加[2018經濟部落客競賽](https://ntpuecon.github.io/econblogcompetition/)
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(magrittr)
+assessment<-data.frame(
+  type=c("課堂參與","作業","期中考","期末考","競賽"),
+  percentage=c(10,20,30,30,10))
+
+
+# Simple Pie Chart
+assessment %$%
+pie(percentage, labels = paste0(type," ", percentage,"%",sep=""), family="wqy-microhei")
+```
+

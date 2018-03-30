@@ -1,0 +1,4 @@
+"0","journals %>% "
+"0","  select(citeprice,subs) %>%"
+"0","  mutate_all(log) %>%"
+"0","  pairs.panels()"

@@ -1,0 +1,147 @@
+"0","pod15regws<-gs_read(pod15reg,ws=""Form Responses 1"")"
+"2","Accessing worksheet titled 'Form Responses 1'.
+"
+"1","Downloading: "
+"1","1.2 kB"
+"1","     "
+"1","Downloading: "
+"1","1.2 kB"
+"1","     "
+"1","Downloading: "
+"1","2.3 kB"
+"1","     "
+"1","Downloading: "
+"1","2.3 kB"
+"1","     "
+"1","Downloading: "
+"1","2.3 kB"
+"1","     "
+"1","Downloading: "
+"1","2.3 kB"
+"1","     "
+"1","Downloading: "
+"1","2.3 kB"
+"1","     "
+"1","Downloading: "
+"1","2.3 kB"
+"1","     "
+"1","Downloading: "
+"1","2.3 kB"
+"1","     "
+"1","Downloading: "
+"1","2.3 kB"
+"1","     "
+"2","Parsed with column specification:
+cols(
+  Timestamp = col_character(),
+  隊名 = col_character(),
+  隊員一姓名 = col_character(),
+  隊員一學號 = col_integer(),
+  `隊員一 email` = col_character(),
+  隊員二姓名 = col_character(),
+  隊員二學號 = col_integer(),
+  `隊員二 email` = col_character(),
+  隊員三姓名 = col_character(),
+  隊員三學號 = col_integer(),
+  `隊員三 email` = col_character(),
+  隊員四姓名 = col_character(),
+  隊員四學號 = col_integer(),
+  `隊員四 email` = col_character(),
+  隊員系級 = col_character(),
+  規則同意 = col_character()
+)
+"
+"0","pod16regws<-gs_read(pod16reg,ws=""Form Responses 1"")"
+"2","Accessing worksheet titled 'Form Responses 1'.
+"
+"1","Downloading: "
+"1","990 B"
+"1","     "
+"1","Downloading: "
+"1","990 B"
+"1","     "
+"1","Downloading: "
+"1","1,000 B"
+"1","     "
+"1","Downloading: "
+"1","1,000 B"
+"1","     "
+"1","Downloading: "
+"1","1,000 B"
+"1","     "
+"1","Downloading: "
+"1","1,000 B"
+"1","     "
+"1","Downloading: "
+"1","1,000 B"
+"1","     "
+"1","Downloading: "
+"1","1,000 B"
+"1","     "
+"2","Parsed with column specification:
+cols(
+  Timestamp = col_character(),
+  隊名 = col_character(),
+  隊員一姓名 = col_character(),
+  隊員一學號 = col_integer(),
+  `隊員一 email` = col_character(),
+  隊員二姓名 = col_character(),
+  隊員二學號 = col_integer(),
+  `隊員二 email` = col_character(),
+  隊員三姓名 = col_character(),
+  隊員三學號 = col_integer(),
+  `隊員三 email` = col_character(),
+  隊員四姓名 = col_character(),
+  隊員四學號 = col_integer(),
+  `隊員四 email` = col_character(),
+  隊員系級 = col_character(),
+  規則同意 = col_character()
+)
+"
+"0","pod17regws<-gs_read(pod17reg,ws=""Form Responses 1"")"
+"2","Accessing worksheet titled 'Form Responses 1'.
+"
+"1","Downloading: "
+"1","1 kB"
+"1","     "
+"1","Downloading: "
+"1","1 kB"
+"1","     "
+"1","Downloading: "
+"1","1.1 kB"
+"1","     "
+"1","Downloading: "
+"1","1.1 kB"
+"1","     "
+"1","Downloading: "
+"1","1.1 kB"
+"1","     "
+"1","Downloading: "
+"1","1.1 kB"
+"1","     "
+"1","Downloading: "
+"1","1.1 kB"
+"1","     "
+"1","Downloading: "
+"1","1.1 kB"
+"1","     "
+"2","Parsed with column specification:
+cols(
+  Timestamp = col_character(),
+  隊名 = col_character(),
+  隊員一姓名 = col_character(),
+  隊員一學號 = col_integer(),
+  `隊員一 email` = col_character(),
+  隊員二姓名 = col_character(),
+  隊員二學號 = col_integer(),
+  `隊員二 email` = col_character(),
+  隊員三姓名 = col_character(),
+  隊員三學號 = col_integer(),
+  `隊員三 email` = col_character(),
+  隊員四姓名 = col_character(),
+  隊員四學號 = col_integer(),
+  `隊員四 email` = col_character(),
+  隊員系級 = col_character(),
+  `我同意此競賽規則，並了解為維護學生權益與競賽品質，如遇特殊狀況，主辦單位保有最終決定權。` = col_character()
+)
+"

@@ -1,0 +1,4 @@
+"0","lciteprice <- seq(from = -6, to = 4, by = 0.25)"
+"0","jour_pred <- predict(jour_lm, interval = ""prediction"","
+"0","  newdata = data.frame(citeprice = exp(lciteprice)))"
+"0","plot(log(subs) ~ log(citeprice), data = journals)"

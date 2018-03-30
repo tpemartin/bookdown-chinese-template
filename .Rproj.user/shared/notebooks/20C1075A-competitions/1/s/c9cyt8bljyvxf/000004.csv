@@ -1,0 +1,4 @@
+"0","write.csv(compete_teams, file=""../main/compete_teams.csv"")
+"
+"2","Error in is.data.frame(x) : object 'compete_teams' not found
+"

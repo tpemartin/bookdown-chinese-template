@@ -1,0 +1,6 @@
+"0","podcast_reg_data$競賽<-""播客"""
+"0","datacomp_reg_data$競賽<-""數據分析"""
+"0","podcast_reg_data$學號 %<>% as.character()"
+"0","competition_reg<-bind_rows(podcast_reg_data,datacomp_reg_data)"
+"0","competition_reg %<>% filter(!is.na(姓名))"
+"0","save(competition_reg,file=""competititon_registration.Rdata"")"

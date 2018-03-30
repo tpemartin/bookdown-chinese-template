@@ -1,0 +1,29 @@
+"0","library(googlesheets)"
+"0","# 取得權杖"
+"0","token<-gs_auth()"
+"2","Auto-refreshing stale OAuth token.
+"
+"0","data15<-gs_url(""https://docs.google.com/spreadsheets/d/1mHK_BeIcV4kjYanqjflDLIFcanBo2pcHJQPrKAGBWvE/edit#gid=823057741"")"
+"2","Sheet-identifying info appears to be a browser URL.
+googlesheets will attempt to extract sheet key from the URL.
+"
+"2","Putative key: 1mHK_BeIcV4kjYanqjflDLIFcanBo2pcHJQPrKAGBWvE
+"
+"2","Sheet successfully identified: ""2015數據分析競賽報名單""
+"
+"0","data16<-gs_url(""https://docs.google.com/spreadsheets/d/1B4KmnABzCdpIHL42lBJIXEE1ApbWYRKzRgcMl1ebdB4/edit#gid=823057741"")  "
+"2","Sheet-identifying info appears to be a browser URL.
+googlesheets will attempt to extract sheet key from the URL.
+"
+"2","Putative key: 1B4KmnABzCdpIHL42lBJIXEE1ApbWYRKzRgcMl1ebdB4
+"
+"2","Sheet successfully identified: ""2016數據分析競賽報名單""
+"
+"0","data17<-gs_url(""https://docs.google.com/spreadsheets/d/1Bm9inghFyGGa0n1uZuRyZK7HXOuttDHFUFovxVd-Hkg/edit#gid=1393168186"")"
+"2","Sheet-identifying info appears to be a browser URL.
+googlesheets will attempt to extract sheet key from the URL.
+"
+"2","Putative key: 1Bm9inghFyGGa0n1uZuRyZK7HXOuttDHFUFovxVd-Hkg
+"
+"2","Sheet successfully identified: ""2017 經濟·數據·分析競賽 (Responses)""
+"
