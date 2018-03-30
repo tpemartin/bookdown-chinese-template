@@ -1,7 +1,0 @@
----
-output: html_document
-bibliography: bibliography.bib
-link-citations: true
-always_allow_html: yes
----
-# 參考資料

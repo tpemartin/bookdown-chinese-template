@@ -4,6 +4,13 @@
 knitr::opts_chunk$set(echo = TRUE, message=FALSE)
 ```
 
+## 複製貼上
+產生程式區塊複製貼上功能
+安裝方式：
+```{r, eval=FALSE}
+devtools::install_github("RLesur/klippy")
+```
+
 ```{r klippy, echo=FALSE, include=TRUE}
 klippy::klippy()
 ```

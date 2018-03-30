@@ -19,6 +19,6 @@ bookdown::gitbook:
       github: false
       facebook: false
       twitter: false
-bookdown::epub_book:
-  stylesheet: "./css/style.css"
-  always_allow_html: yes
+#bookdown::epub_book:
+#  stylesheet: "./css/style.css"
+#  always_allow_html: yes
