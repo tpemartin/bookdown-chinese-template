@@ -22,7 +22,3 @@ bookdown::gitbook:
 #bookdown::epub_book:
 #  stylesheet: "./css/style.css"
 #  always_allow_html: yes
-rticles::ctex:
-  fig_caption: yes
-  number_sections: yes
-  toc: no
