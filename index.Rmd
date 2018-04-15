@@ -4,6 +4,7 @@ author: "林茂廷老師"
 date: "`r Sys.Date()`"
 description: 數量方法（一）電子書
 documentclass: ctexbook
+classoption: "hyperref,"
 geometry:
 - b5paper
 - tmargin=2.5cm
@@ -15,6 +16,7 @@ lof: yes
 lot: yes
 site: bookdown::bookdown_site
 colorlinks: yes
+always_allow_html: yes
 ---
 
 ```{r setup, include=FALSE}
